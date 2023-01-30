@@ -4,7 +4,7 @@ import { Counter } from "./Counter";
 
 test("renders counter number 0", () => {
   render(<Counter />);
-  const input = screen.getByText("0");
+  const input = screen.getByTestId("counter");
   expect(input).toHaveTextContent("0");
 });
 
@@ -54,7 +54,15 @@ test("when a reset button is clicked, count resets to 0", async () => {
   expect(counter).toHaveTextContent("0");
 });
 
-test("display previous count", async () => {
+test("display previous counter", async () => {
+  render(<Counter />);
+
+  const previousCounter = screen.getByTestId("previous-count");
+  expect(previousCounter).toBeInTheDocument();
+  expect(previousCounter).toHaveTextContent("");
+});
+
+test("display previous counter as 0 when counter is increased to 1", async () => {
   render(<Counter />);
 
   const startButton = screen.getByTestId("start");
